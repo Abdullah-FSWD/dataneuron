@@ -3,7 +3,7 @@ import SplitPane, { Pane } from "split-pane-react";
 import "split-pane-react/esm/themes/default.css";
 
 export const Resizable = () => {
-  const [sizes, setSizes] = useState([100, "30%", "auto"]);
+  const [sizes, setSizes] = useState([]);
 
   const layoutCSS = {
     height: "100%",
@@ -14,30 +14,21 @@ export const Resizable = () => {
   };
 
   const Window1 = () => (
-    <SplitPane split="vertical" sizes={sizes} onChange={setSizes}>
-      <Pane minSize={50} maxSize="70%">
-        <div
-          style={{
-            ...layoutCSS,
-            // background: "#ddd",
-            border: "1px solid black",
-          }}
-        >
-          Window-1
-        </div>
-      </Pane>
-      <Window2 />
-    </SplitPane>
+    <div
+      style={{
+        ...layoutCSS,
+        border: "1px solid black",
+      }}>
+      Window-1
+    </div>
   );
 
   const Window2 = () => (
     <div
       style={{
         ...layoutCSS,
-        // background: "#d5d7d9",
         border: "1px solid black",
-      }}
-    >
+      }}>
       Window-2
     </div>
   );
@@ -48,24 +39,28 @@ export const Resizable = () => {
         ...layoutCSS,
         // background: "#d5d7d9",
         border: "1px solid black",
-      }}
-    >
+      }}>
       Window-3
     </div>
   );
 
   const Window = () => (
-    <SplitPane split="horizontal" sizes={sizes} onChange={setSizes}>
-      <Pane minSize={50} maxSize="70%">
+    <SplitPane split="vertical" sizes={sizes} onChange={setSizes}>
+      <Pane minSize="20%" style={{ minHeight: 200 }}>
         <Window1 />
       </Pane>
-      <Window3 />
+      <Pane minSize="20%">
+        <Window2 />
+      </Pane>
     </SplitPane>
   );
 
   return (
     <div style={{ height: 500 }}>
-      <Window />
+      <SplitPane split="horizontal" sizes={sizes} onChange={setSizes}>
+        <Window />
+        <Window3 />
+      </SplitPane>
     </div>
   );
 };
